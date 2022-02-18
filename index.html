@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="product">
+        <li id="shoes">shoes</li>
+        <li id="shirt">shirt</li>
+        <li id="wallets">wallets</li>
+    </div>
+    <script>
+        // const arr = [2,5,3,4,7]
+        // const mapresult= arr.map((ar)=>{
+        //     return ar+2;
+        // });
+        // const foreachresult = arr.forEach((ar,i)=>{
+        //     return arr[i]=ar+3;
+        // });
+        // console.log(mapresult,foreachresult,arr);
+        
+        // Event Delegation
+        // Event Delegation is basically a pattern to handle events efficiently. Instead of adding an event listener to each and every similar element, we can add an event listener to a parent element and call an event on a particular target using the . ... The event object has a special property call
+        document.querySelector("#product").addEventListener("click",(event)=>{
+            console.log("Hello",event);
+            if(event.target.tagName == 'LI'){
+                window.location.href+="#"+event.target.id;
+            }
+        })
+
+        // Flatting the Array?
+        // Flattening an array is a process of reducing the dimensionality of an array. In other words, it a process of reducing the number of dimensions of an array to a lower number.
+
+        let arr2 = [
+            [1,2],
+            [3,4],
+            [5,6,[7,8],9],
+            [10,11,12],
+        ];
+        // [1,2,3,4,5,6,7,8,9,10,11,12]
+        let flattend = [].concat(...arr2);
+        console.log(flattend);
+
+        // inbuild flat method (argu) is no. of dimantion
+        console.log(arr2.flat(2));
+
+        function customFlat(arr2,depth = 1) {
+            let result =[];
+            arr2.forEach(ar => {
+                if(Array.isArray(ar)&& depth > 0){
+                    result.push(...customFlat(ar,depth-1));
+                }
+                else{
+                    result.push(ar)
+                }
+            });
+            return result;
+        }
+console.log(customFlat(arr2,2));
+
+// project shows?
+// setTimeout Output?
+// function a() {
+//     for (var i=0;i<3;i++){
+//         setTimeout(function log() {
+//             console.log(i);
+//         },i*1000);
+//     }
+// }
+// a();
+// 3 3 3
+function a() {
+    for (let i=0;i<3;i++){
+        setTimeout(function log() {
+            console.log(i);
+        },i*1000);
+    }
+}
+a();
+// 0 1 2    
+// Explain Call, apply and bind
+var person = {
+    name:"Gopi",
+    hello:function(thing){
+        console.log(this.name +" say hello "+thing);
+    },
+};
+
+// Composition Polyfill
+// function addFive(a) {
+//     return a+5;
+// }
+// function subtractTwo(a) {
+//     return a-2;
+// }
+// function multiplyFour(a) {
+//     return a*4;
+// }
+
+// const compose = (...functions)=>{
+//     return (args)=>{
+//         return functions.reduceRight((arg,fn)=>fn(arg),args);
+//     };
+// };
+
+// const evaluate = compose(addFive,subtractTwo,multiplyFour);
+// console.log(evaluate(5));
+// var alterEgo = {
+//     name:"Gopi Patwa",
+// };
+// person.hello("Kishan")
+
+// Implement Promise.all
+function showText(text,time) {
+    return new Promise((resolve,reject)=>{
+        setTimeout(()=>{
+            resolve(text);
+        },time);
+    });
+}
+Promise.all([showText("Hello",1000),Promise.resolve(["hii","G"])]).then((value)=>console.log(value));
+  </script>
+</body>
+</html>
